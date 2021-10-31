@@ -1,7 +1,6 @@
 /* This file is for your main application CSS */
-@import "./phoenix.css";
 @import "tailwindcss/base";
-@import "tailwindcss/components";
+/* @import "tailwindcss/components"; */
 @import "tailwindcss/utilities";
 
 /* Alerts and form errors used by phx.new */
@@ -89,4 +88,9 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+body {
+  @apply max-w-screen-lg m-auto;
+  @apply border border-indigo-600;
 }
