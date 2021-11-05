@@ -1,0 +1,18 @@
+<div class="matrix">
+  <%= for col <- 0..@w - 1 do %>
+    <div id={"col-#{col}"} phx-hook="ColumnActive" class={ "matrix-col" <> active_column?(@current, col) }>
+      <div class="matrix-item indicator"></div>
+      <%= for row <- 0..@h - 1 do %>
+        <% cell = GEMS.Matrix.get(@matrix, col, row) %>
+        <div
+          class={"matrix-item #{active_cell?(cell)}"}
+          data-note={Enum.at(@notes,row)}
+          phx-click="matrix-item"
+          phx-value-value={ cell }
+          phx-value-col={ col }
+          phx-value-row={ row }>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

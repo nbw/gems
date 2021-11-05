@@ -1,0 +1,47 @@
+<GEMSWeb.Components.AudioModal.render />
+<% matrix = @global[:matrix] %>
+<% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
+<section class="section" data-section="matrix">
+  <.live_component
+    module={GEMSWeb.Components.Matrix}
+    id="matrix"
+    matrix={matrix}
+    w={matrix.w}
+    h={matrix.h}
+    notes={notes}
+    current={@local[:current]}
+  />
+</section>
+<section class="section" data-section="cables">
+    <div class="cables mx-4">
+      <div class="cables-mid">
+        <div class="cable">
+          <div class="cable-top"></div>
+          <div class="cable-mid"></div>
+          <div class="cable-bot"></div>
+        </div>
+        <div class="cable">
+          <div class="cable-top"></div>
+          <div class="cable-mid"></div>
+          <div class="cable-bot"></div>
+        </div>
+        <div class="cable">
+          <div class="cable-top"></div>
+          <div class="cable-mid"></div>
+          <div class="cable-bot"></div>
+        </div>
+      </div>
+      <div class="cables-bottom"></div>
+  </div>
+</section>
+<section class="section" data-section="controls">
+  <div id="control" class="control-row justify-around">
+    <div class="control flex-grow">
+      <.live_component module={GEMSWeb.Components.Adsr} id="adsr" adsr={@local[:adsr]} />
+    </div>
+    <div class="control ml-4 flex-shrink">
+      <.live_component module={GEMSWeb.Components.LocalControl} id="local-control" local={@local} />
+    </div>
+  </div>
+</section>
+<GEMSWeb.Components.Content.render  />
