@@ -505,11 +505,11 @@ body.dark .mode-switch img {
 }
 
 .matrix-item.indicator.active ~ .matrix-item.active {
-  background-color: blue; /* red */
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .matrix-item:hover {
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 body.dark {
@@ -553,7 +553,7 @@ body.dark .matrix-col.active .matrix-item.indicator {
 }
 
 body.dark .matrix-item:hover {
-  background-color: #80b5ff;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 body.dark .matrix-col .matrix-item.indicator.active {
@@ -561,6 +561,10 @@ body.dark .matrix-col .matrix-item.indicator.active {
 }
 body.dark .matrix-col .matrix-item.active {
   background-image: url("/images/texture_1_dark.png");
+}
+
+body.dark .matrix-item.indicator.active ~ .matrix-item.active {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 body.dark .cable .cable-mid {
