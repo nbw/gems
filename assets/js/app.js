@@ -30,20 +30,30 @@ let synth = undefined;
 let reverb = undefined;
 let delay = undefined;
 
-const modeBtnId = "mode";
+const modeBtnClass = "mode-switch";
 const audioBtnId = "audio-btn";
 const adsr = "adsr";
 const reverbId = "slider_reverb";
 const delayId = "slider_delay";
+const tempoId = "slider_tempo";
 
-if (document.getElementById(modeBtnId)) {
-  document.getElementById(modeBtnId).addEventListener("click", (e) => {
-    const body = document.body;
-    body.classList.toggle("dark");
-  })
+// light/dark mode
+const modeBtns = document.getElementsByClassName(modeBtnClass);
+if (modeBtns.length > 0) {
+  for (let i = 0; i < modeBtns.length; i++) {
+    modeBtns[i].addEventListener("click", (e) => {
+      const body = document.body;
+      body.classList.toggle("dark");
+    });
+  }
 }
 
-// if (document.getElementById(audioBtnId)) {
+/**
+ * Synth
+ *
+ * Setup the instrument and effects.
+ */ 
+if (document.getElementById(audioBtnId)) {
   document.getElementById(audioBtnId).addEventListener("click", function() {
     Tone.context.resume().then(() => {
       console.log('Playback resumed successfully');
@@ -78,11 +88,14 @@ if (document.getElementById(modeBtnId)) {
       synth.triggerAttackRelease("C4", "8n");
     });
   });
-// }
+}
 
+/**
+ * Beep!
+ *
+ * Make noise for each active item in a matrix column
+ */
 let beep = (col) => {
-  if (!col.classList.contains("active")) return;
-
   let notes = [];
   for (let i = 0; i < col.children.length; i++) {
     if (col.children[i].classList.contains("active")) {
@@ -111,16 +124,24 @@ let beep = (col) => {
   }
 }
 
-let Hooks = {}
-Hooks.ColumnActive = {
-  updated() {
-    let col = this.el;
-    beep(col);
-  }
+/**
+ * Tic-toc
+ *
+ * Increment the sequencer at a certain tempo
+ */
+const indicators = document.getElementsByClassName("indicator");
+const tic = (i) => {
+  const col = indicators[(i+1)%indicators.length].parentElement;
+  const tempo = parseInt(document.getElementById(tempoId).getAttribute("data-value-ms"));
+  indicators[i%indicators.length].classList.remove("active");
+  indicators[(i+1)%indicators.length].classList.add("active");
+  beep(col);
+  setTimeout(tic, tempo, (i+1)%indicators.length);
 }
+tic(0);
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
 
 // connect if there are any LiveViews` on the page
 liveSocket.connect()

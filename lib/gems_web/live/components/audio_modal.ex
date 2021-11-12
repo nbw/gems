@@ -20,6 +20,8 @@ defmodule GEMSWeb.Components.AudioModal do
         <p>Welcome to GEMS.</p>
         <p>Audio will have to be enabled before you can continue.</p>
         <button id="audio-btn" class="modal-button" phx-click={hide_modal()}>enable audio</button>
+        <hr class="my-4" />
+        <GEMSWeb.Components.ModeSwitch.button />
       </div>
     </div>
     """

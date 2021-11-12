@@ -5,13 +5,14 @@ defmodule GEMSWeb.GEMSLive do
 
   alias GEMS.Matrix
   alias GEMS.Music
+  alias GEMSWeb.PubSub
+  alias GEMSWeb.Presence
 
   @size 16
-  @default_tempo 120
+  @default_tempo 180
   @local_default %{
     key: 0,
     scale: 0,
-    current: 0,
     tempo: @default_tempo,
     reverb: 10,
     delay: 10,
@@ -23,26 +24,34 @@ defmodule GEMSWeb.GEMSLive do
     }
   }
 
+  @topic "room:public"
+  @presence_topic "presence"
+
   def mount(_params, _, socket) do
-    if connected?(socket), do: Process.send_after(self(), :tic, Music.tempo(@default_tempo))
+    PubSub.subscribe(@topic)
+    Presence.track(self(), @topic, socket.id, %{})
+
     matrix = Matrix.new(@size)
     matrix = Enum.reduce(0..15, matrix, fn x, m -> Matrix.set(m, x, x, 1) end)
 
-    {:ok, assign(socket, local: @local_default, global: %{matrix: matrix})}
+    {:ok, assign(socket, users: 1, local: @local_default, global: %{matrix: matrix})}
   end
 
   def handle_event(
         "matrix-item",
         %{"col" => x, "row" => y, "value" => v},
-        %{assigns: %{global: %{matrix: m} = g}} = socket
+        socket
       ) do
     {x, ""} = Integer.parse(x)
     {y, ""} = Integer.parse(y)
     {v, ""} = Integer.parse(v)
 
+    # flips a 1 or a 0
     next = abs(v - 1)
 
-    {:noreply, assign(socket, :global, %{g | matrix: Matrix.set(m, x, y, next)})}
+    PubSub.broadcast(@topic, {:matrix_update, %{x: x, y: y, v: next}})
+
+    {:noreply, socket}
   end
 
   # handle updates from ADSR sliders
@@ -99,12 +108,18 @@ defmodule GEMSWeb.GEMSLive do
     {:noreply, assign(socket, :local, Map.put(local, key, new))}
   end
 
-  # increment sequencer at a specific BPM
-  def handle_info(:tic, %{assigns: %{local: %{current: current, tempo: tempo} = local}} = socket) do
-    Process.send_after(self(), :tic, Music.tempo(tempo))
+  def handle_info(
+        {:matrix_update, %{x: x, y: y, v: v}},
+        %{assigns: %{global: %{matrix: m} = g}} = socket
+      ) do
+    {:noreply, assign(socket, :global, %{g | matrix: Matrix.set(m, x, y, v)})}
+  end
 
-    local = Map.put(local, :current, rem(current + 1, @size))
-
-    {:noreply, assign(socket, :local, local)}
+  # callback for Presence when a user connects/disconnects
+  def handle_info(
+        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves} = payload},
+        socket
+      ) do
+    {:noreply, assign(socket, :users, Presence.user_count(@topic))}
   end
 end

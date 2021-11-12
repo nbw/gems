@@ -195,7 +195,7 @@ input[type="range"]::-ms-thumb {
 .matrix {
   @apply inline-flex flex-row flex-wrap justify-center;
   @apply flex-grow;
-  @apply p-0 py-1 mt-2 md:p-4 md:mt-6 border;
+  @apply p-0 py-1 md:mt-2 md:p-4 md:mt-6 border;
 }
 
 .matrix-col {
@@ -211,11 +211,6 @@ input[type="range"]::-ms-thumb {
 
 .matrix-item.indicator {
   @apply m-1 md:m-4 w-2 h-2 rounded-full;
-}
-
-.matrix-col .matrix-item.active {
-  background-image: url("/images/texture_1.png");
-  background-repeat: repeat;
 }
 
 .control {
@@ -359,15 +354,29 @@ input[type="range"]::-ms-thumb {
   border-style: solid;
 }
 
+.presence {
+  @apply md:my-1 mx-1 md:absolute md:my-2 md:mx-4 md:top-0 md:right-0;
+  @apply flex flex-row items-center justify-center;
+}
+
+.presence img.logo {
+  content: url(/images/person.png);
+  @apply mx-1 mb-1;
+}
+
+body.dark .presence img.logo {
+  content: url(/images/person_dark.png);
+}
+
 /* ====== Light/Dark mode button ====== */
-#mode {
+.mode-switch {
   text-align: center;
 }
-#mode > * {
+.mode-switch > * {
   vertical-align: middle;
 }
 
-#mode img {
+.mode-switch img {
   content: url(/images/sunx20.png);
   height: 20px;
   display: inline-block;
@@ -409,11 +418,11 @@ input[type="range"]::-ms-thumb {
   transition: 0.15s;
 }
 
-body.dark #mode + .box {
+body.dark .mode-switch + .box {
   background-color: #2196f3;
 }
 
-body.dark #mode .box {
+body.dark .mode-switch .box {
   background-color: black;
 }
 
@@ -424,7 +433,7 @@ body.dark .box:before {
   transform: translateX(20px);
 }
 
-body.dark #mode img {
+body.dark .mode-switch img {
   content: url(/images/moonx20.png);
 }
 
@@ -485,12 +494,18 @@ body.dark #mode img {
   background-image: url("/images/texture_2.png");
 }
 
-.matrix-col.active .matrix-item.active {
-  background-color: rgba(0, 0, 0, 0.35);
+.matrix-item.indicator.active {
+  background-image: none;
+  background-color: #ff5638; /* red */
 }
 
-.matrix-col.active .matrix-item.indicator {
-  background-color: #ff5638; /* red */
+.matrix-item.active {
+  background-image: url("/images/texture_1.png");
+  background-repeat: repeat;
+}
+
+.matrix-item.indicator.active ~ .matrix-item.active {
+  background-color: blue; /* red */
 }
 
 .matrix-item:hover {
@@ -541,6 +556,9 @@ body.dark .matrix-item:hover {
   background-color: #80b5ff;
 }
 
+body.dark .matrix-col .matrix-item.indicator.active {
+  background-image: none;
+}
 body.dark .matrix-col .matrix-item.active {
   background-image: url("/images/texture_1_dark.png");
 }

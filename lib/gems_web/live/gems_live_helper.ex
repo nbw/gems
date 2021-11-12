@@ -10,5 +10,8 @@ defmodule GEMSWeb.GEMSLiveHelper do
   defdelegate scale_name(i), to: Music
 
   defdelegate get_notes(key, scale, num_notes), to: Music
+
   defdelegate get_key(key), to: Music
+
+  defdelegate tempo_ms(tempo), to: Music
 end

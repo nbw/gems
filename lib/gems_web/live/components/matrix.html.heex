@@ -1,7 +1,7 @@
 <div class="matrix">
   <%= for col <- 0..@w - 1 do %>
-    <div id={"col-#{col}"} phx-hook="ColumnActive" class={ "matrix-col" <> active_column?(@current, col) }>
-      <div class="matrix-item indicator"></div>
+    <div id={"col-#{col}"} class={ "matrix-col"}>
+      <div phx-update="ignore" class={"matrix-item indicator"}></div>
       <%= for row <- 0..@h - 1 do %>
         <% cell = GEMS.Matrix.get(@matrix, col, row) %>
         <div

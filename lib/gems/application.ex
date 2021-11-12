@@ -12,6 +12,7 @@ defmodule GEMS.Application do
       GEMSWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: GEMS.PubSub},
+      GEMSWeb.Presence,
       # Start the Endpoint (http/https)
       GEMSWeb.Endpoint
       # Start a worker by calling: GEMS.Worker.start_link(arg)

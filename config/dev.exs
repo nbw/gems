@@ -9,7 +9,7 @@ import Config
 config :gems, GEMSWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   debug_errors: true,
   secret_key_base: "hH39YeFxbSKcmKAphlJUeCa0U3WUVhL44gg1UJbHK+3LasNYA9dmCFzDACCHR+C5",
   code_reloader: true,

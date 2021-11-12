@@ -6,7 +6,7 @@
           <label class="control-label">TEMPO <span class='box-label'><%= pad_number(@local[:tempo], 3) %></span></label>
         </td>
         <td>
-          <%= range_input :slider, :tempo, class: "slider", min: 60, max: 240, value: @local[:tempo]  %>
+          <%= range_input :slider, :tempo, class: "slider", min: 60, max: 300, value: @local[:tempo], "data-value-ms": tempo_ms(@local[:tempo]) %>
         </td>
       </tr>
       <tr>

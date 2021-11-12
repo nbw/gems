@@ -6,7 +6,7 @@ defmodule GEMS.Music do
     Scale
   }
 
-  defdelegate tempo(bpm), to: Tempo, as: :bpm_to_ms
+  defdelegate tempo_ms(bpm), to: Tempo, as: :bpm_to_ms
 
   defdelegate adsr_coords(a, d, s, r), to: Adsr
 
