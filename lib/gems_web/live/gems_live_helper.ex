@@ -1,5 +1,8 @@
 defmodule GEMSWeb.GEMSLiveHelper do
   alias GEMS.Music
+  alias GEMS.Matrix
+
+  @public_topic "room:public"
 
   def pad_number(num, pad) do
     num
@@ -14,4 +17,21 @@ defmodule GEMSWeb.GEMSLiveHelper do
   defdelegate get_key(key), to: Music
 
   defdelegate tempo_ms(tempo), to: Music
+
+  def room_topic(%{"room" => topic}), do: "room:private:#{topic}"
+  def room_topic(_params), do: @public_topic
+
+  def public_room?(%{assigns: %{topic: topic}} = _socket), do: public_room?(topic)
+
+  def public_room?(topic), do: topic == @public_topic
+
+  def new_matrix(size, %{"m" => matrix_64} = _params) do
+    Base.url_decode64(matrix_64)
+    |> case do
+      {:ok, matrix} -> Matrix.new(size, board: matrix)
+      :error -> :error
+    end
+  end
+
+  def new_matrix(size, _params), do: Matrix.new(size)
 end

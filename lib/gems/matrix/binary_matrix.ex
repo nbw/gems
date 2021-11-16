@@ -23,7 +23,7 @@ defmodule GEMS.Matrix.BinaryMatrix do
 
   @behaviour GEMS.Matrix
 
-  defstruct board: %{}, h: 8, w: 8
+  defstruct board: "", h: 8, w: 8
 
   alias GEMS.Matrix.BinaryHelper, as: Binary
 
@@ -33,11 +33,16 @@ defmodule GEMS.Matrix.BinaryMatrix do
   Note: hasn't been tested for non-multiples of 8.
   """
   @impl GEMS.Matrix
-  def new(size) do
+  def new(size, opts \\ []) do
     grid_size = size * size
-    grid = for i <- List.duplicate(0, grid_size), do: <<i::1>>, into: <<>>
 
-    %__MODULE__{board: grid, h: size, w: size}
+    board = Keyword.get(opts, :board) || zero_grid(grid_size)
+
+    if bit_size(board) == grid_size do
+      {:ok, %__MODULE__{board: board, h: size, w: size}}
+    else
+      {:error, :invalid_board}
+    end
   end
 
   @doc """
@@ -75,5 +80,9 @@ defmodule GEMS.Matrix.BinaryMatrix do
 
   defp calc_x_index(x) do
     rem(x, 8)
+  end
+
+  defp zero_grid(bit_size) do
+    for i <- List.duplicate(0, bit_size), do: <<i::1>>, into: <<>>
   end
 end

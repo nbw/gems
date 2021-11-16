@@ -1,8 +1,8 @@
-<GEMSWeb.Components.AudioModal.render />
+<GEMSWeb.Components.AudioModal.render topic={@topic}/>
 <% matrix = @global[:matrix] %>
 <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
 <div class="presence">
-  <span><%= @users %></span>
+  <span><%= @global[:users] %></span>
   <img class="logo"/>
 </div>
 <section class="section" data-section="matrix">

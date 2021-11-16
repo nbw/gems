@@ -1,8 +1,6 @@
 defmodule GEMSWeb.GEMSLive do
   use GEMSWeb, :live_view
 
-  import GEMSWeb.GEMSLiveHelper
-
   alias GEMS.Matrix
   alias GEMS.Music
   alias GEMSWeb.PubSub
@@ -24,33 +22,53 @@ defmodule GEMSWeb.GEMSLive do
     }
   }
 
-  @topic "room:public"
-  @presence_topic "presence"
+  def mount(params, _, socket) do
+    if connected?(socket), do: Process.send_after(self(), :clear_flash, 5000)
 
-  def mount(_params, _, socket) do
-    PubSub.subscribe(@topic)
-    Presence.track(self(), @topic, socket.id, %{})
+    topic = room_topic(params)
 
-    matrix = Matrix.new(@size)
-    matrix = Enum.reduce(0..15, matrix, fn x, m -> Matrix.set(m, x, x, 1) end)
+    new_matrix(@size, params)
+    |> case do
+      {:ok, matrix} ->
+        PubSub.subscribe(topic)
+        Presence.track(self(), topic, socket.id, %{})
 
-    {:ok, assign(socket, users: 1, local: @local_default, global: %{matrix: matrix})}
+        {:ok,
+         assign(socket,
+           topic: topic,
+           local: @local_default,
+           global: %{
+             matrix: matrix,
+             users: 1
+           }
+         )}
+
+      _error ->
+        # Simply redirect to homepage if any errors
+        socket = put_flash(socket, :error, "Invalid url. Redirected.")
+
+        mount(%{}, nil, push_redirect(socket, to: "/"))
+    end
   end
 
   def handle_event(
         "matrix-item",
         %{"col" => x, "row" => y, "value" => v},
-        socket
+        %{assigns: %{topic: topic, global: %{matrix: m}}} = socket
       ) do
     {x, ""} = Integer.parse(x)
     {y, ""} = Integer.parse(y)
     {v, ""} = Integer.parse(v)
 
-    # flips a 1 or a 0
+    # flips a 1 or 0
     next = abs(v - 1)
 
-    PubSub.broadcast(@topic, {:matrix_update, %{x: x, y: y, v: next}})
+    PubSub.broadcast(topic, {:matrix_update, %{x: x, y: y, v: next}})
 
+    {:noreply, socket}
+  end
+
+  def handle_params(_, _, socket) do
     {:noreply, socket}
   end
 
@@ -110,16 +128,32 @@ defmodule GEMSWeb.GEMSLive do
 
   def handle_info(
         {:matrix_update, %{x: x, y: y, v: v}},
-        %{assigns: %{global: %{matrix: m} = g}} = socket
+        %{assigns: %{topic: topic, global: %{matrix: m} = g}} = socket
       ) do
+    socket = save_board_to_url(socket)
+
     {:noreply, assign(socket, :global, %{g | matrix: Matrix.set(m, x, y, v)})}
   end
 
   # callback for Presence when a user connects/disconnects
   def handle_info(
         %{event: "presence_diff", payload: %{joins: joins, leaves: leaves} = payload},
-        socket
+        %{assigns: %{topic: topic, global: g}} = socket
       ) do
-    {:noreply, assign(socket, :users, Presence.user_count(@topic))}
+    {:noreply, assign(socket, :global, %{g | users: Presence.user_count(topic)})}
+  end
+
+  def handle_info(:clear_flash, socket) do
+    {:noreply, clear_flash(socket)}
+  end
+
+  defp save_board_to_url(%{assigns: %{topic: topic, global: %{matrix: m}}} = socket) do
+    if(public_room?(socket)) do
+      socket
+    else
+      "room:private:" <> room = topic
+      url = Routes.room_gems_path(socket, :show, room, m: Base.url_encode64(m.board))
+      socket = push_patch(socket, to: url)
+    end
   end
 end
