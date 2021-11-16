@@ -10,10 +10,13 @@
 
 /* Alerts and form errors used by phx.new */
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  @apply my-1 p-2 mx-auto;
+  max-width: 600px;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 100;
 }
 .alert-info {
   color: #31708f;
@@ -24,11 +27,6 @@
   color: #8a6d3b;
   background-color: #fcf8e3;
   border-color: #faebcc;
-}
-.alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
 }
 .alert p {
   margin-bottom: 0;
@@ -119,6 +117,18 @@ footer {
 
 a {
   @apply underline;
+}
+
+ul {
+  list-style: circle;
+  @apply ml-4;
+}
+li {
+  @apply my-2;
+}
+
+section.content {
+  @apply my-14;
 }
 
 .slider {
@@ -438,6 +448,10 @@ body.dark .mode-switch img {
 }
 
 /* ===== COLOR ===== */
+.alert-danger {
+  @apply text-white bg-black border-black uppercase text-center;
+}
+
 * {
   transition: background-color 0.1s, border-color 0.2s, border-left 0.2s,
     border-right 0.2s, color 0.2s;
@@ -510,6 +524,10 @@ body.dark .mode-switch img {
 
 .matrix-item:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark .alert-danger {
+  @apply text-black bg-white border-black;
 }
 
 body.dark {
