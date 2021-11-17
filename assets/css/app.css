@@ -73,7 +73,7 @@
 
 .phx-modal-content {
   background-color: #fefefe;
-  margin: 15vh auto;
+  @apply mx-auto my-6 md:my-16;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
