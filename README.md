@@ -1,18 +1,25 @@
 # GEMS
 
-To start your Phoenix server:
+## Using Clustered Nodes Locally
 
-  * Install dependencies with `mix deps.get`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+1. Start the first node:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```
+PORT=4000 iex --sname abc@localhost -S mix phx.server
+```
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+2. Start a second node:
 
-## Learn more
+```
+PORT=4001 iex --sname xyz@localhost -S mix phx.server
+```
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Useful:
+
+```elixir
+# List other nodes
+Node.list([:this, :visible])
+
+# List all nodes (including self)
+Node.list([:this, :visible])
+```

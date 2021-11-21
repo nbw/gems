@@ -1,10 +1,13 @@
 defmodule GEMSWeb.GEMSLive do
   use GEMSWeb, :live_view
 
+  import GEMS.Util.Time
+
   alias GEMS.Matrix
   alias GEMS.Music
   alias GEMSWeb.PubSub
   alias GEMSWeb.Presence
+  alias GEMS.MatrixStore, as: Store
 
   @size 16
   @default_tempo 180
@@ -27,7 +30,12 @@ defmodule GEMSWeb.GEMSLive do
 
     topic = room_topic(params)
 
-    new_matrix(@size, params)
+    if public_room?(topic) do
+      board = Store.get()
+      new_matrix(@size, board)
+    else
+      new_matrix_64(@size, Map.get(params, "m"))
+    end
     |> case do
       {:ok, matrix} ->
         PubSub.subscribe(topic)
@@ -99,15 +107,14 @@ defmodule GEMSWeb.GEMSLive do
     {:noreply, assign(socket, :local, Map.put(local, String.to_atom(key), v))}
   end
 
-  # general-use updates from local-control < and > buttons
+  # general-use updates from local-control < and > buttons (+/-)
   def handle_event(
         "inc",
         %{"action" => action, "value" => key, "max" => max},
         %{assigns: %{local: local}} = socket
       ) do
     {max, ""} = Integer.parse(max)
-    key = String.to_atom(key)
-
+    key = String.to_existing_atom(key)
     current = Map.get(local, key)
 
     new =
@@ -116,12 +123,8 @@ defmodule GEMSWeb.GEMSLive do
         "-" -> current - 1
       end
 
-    new =
-      cond do
-        new > max -> -1 * max + 1
-        new < -1 * max -> max
-        new -> new
-      end
+    # wrap around
+    new = rem(new + max, max)
 
     {:noreply, assign(socket, :local, Map.put(local, key, new))}
   end
@@ -132,7 +135,13 @@ defmodule GEMSWeb.GEMSLive do
       ) do
     socket = save_board_to_url(socket)
 
-    {:noreply, assign(socket, :global, %{g | matrix: Matrix.set(m, x, y, v)})}
+    m = Matrix.set(m, x, y, v)
+
+    if public_room?(topic) do
+      Store.update(m.board, now())
+    end
+
+    {:noreply, assign(socket, :global, %{g | matrix: m})}
   end
 
   # callback for Presence when a user connects/disconnects

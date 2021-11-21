@@ -25,13 +25,20 @@ defmodule GEMSWeb.GEMSLiveHelper do
 
   def public_room?(topic), do: topic == @public_topic
 
-  def new_matrix(size, %{"m" => matrix_64} = _params) do
+  def new_matrix_64(size, matrix_64) do
     Base.url_decode64(matrix_64)
     |> case do
-      {:ok, matrix} -> Matrix.new(size, board: matrix)
-      :error -> :error
+      {:ok, matrix} ->
+        new_matrix(size, matrix)
+
+      :error ->
+        :error
     end
   end
 
-  def new_matrix(size, _params), do: Matrix.new(size)
+  def new_matrix(size, matrix) when is_bitstring(matrix) do
+    Matrix.new(size, board: matrix)
+  end
+
+  def new_matrix(size, _), do: Matrix.new(size)
 end

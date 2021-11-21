@@ -19,6 +19,10 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
+
   config :gems, GEMSWeb.Endpoint,
     http: [
       # Enable IPv6 and bind on all interfaces.
@@ -39,4 +43,16 @@ if config_env() == :prod do
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
+
+  config :libcluster,
+    topologies: [
+      fly_cluster: [
+        strategy: Elixir.Cluster.Strategy.DNSPoll,
+        config: [
+          polling_interval: 5_000,
+          query: "#{app_name}.internal",
+          node_basename: app_name
+        ]
+      ]
+    ]
 end
