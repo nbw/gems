@@ -33,7 +33,7 @@ defmodule GEMSWeb.Components.AudioModal do
             <p>
               Alternatively, you can create a private room by clicking the link below:
             </p>
-            <div class="text-center">
+            <div class="private">
               <%= live_patch "private room", to: Routes.room_path(GEMSWeb.Endpoint, :new) %>
             </div>
           <% else %>

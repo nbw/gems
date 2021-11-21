@@ -181,8 +181,12 @@ input[type="range"]::-ms-thumb {
 
 .modal-button {
   @apply block mx-auto p-2;
-  @apply border border-2;
+  @apply border;
   @apply uppercase;
+}
+
+.private {
+  @apply text-center border block w-40 mx-auto;
 }
 
 .section {
@@ -448,6 +452,7 @@ body.dark .mode-switch img {
 }
 
 /* ===== COLOR ===== */
+
 .alert-danger {
   @apply text-white bg-black border-black uppercase text-center;
 }
@@ -477,6 +482,14 @@ body.dark .mode-switch img {
 }
 
 .modal-button {
+  @apply text-white;
+}
+
+.private {
+  @apply bg-white hover:bg-black;
+}
+
+.private:hover a {
   @apply text-white;
 }
 
@@ -604,6 +617,13 @@ body.dark .control-btn:hover {
 
 body.dark .modal-button:hover {
   @apply bg-black text-white;
+}
+
+body.dark .private {
+  @apply bg-black hover:bg-white;
+}
+body.dark .private:hover a {
+  @apply text-black;
 }
 
 body.dark .slider {

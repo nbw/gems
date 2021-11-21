@@ -11,8 +11,8 @@ defmodule GEMS.Music.Scale do
     major: [2, 2, 1, 2, 2, 2, 1],
     # aeolian
     minor: [2, 1, 2, 2, 1, 2, 2],
-    minor_harmonic: [2, 1, 2, 2, 1, 3, 1],
-    minor_melodic: [2, 1, 2, 2, 2, 2, 1]
+    m_harmonic: [2, 1, 2, 2, 1, 3, 1],
+    m_melodic: [2, 1, 2, 2, 2, 2, 1]
     # dorian: [2, 1, 2, 2, 2, 1, 2],
     # phrygian: [1, 2, 2, 2, 1, 2, 2],
     # lydian: [2, 2, 2, 1, 2, 2, 1],
