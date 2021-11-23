@@ -45,8 +45,8 @@ defmodule GEMS.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:elixir_uuid, "~> 1.2"},
-      {:libcluster, "~> 3.3.0"}
+      {:elixir_uuid, "~> 1.2"}
+      # {:libcluster, "~> 3.3.0"}
     ]
   end
 
