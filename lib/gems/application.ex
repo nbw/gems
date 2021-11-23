@@ -15,8 +15,8 @@ defmodule GEMS.Application do
       GEMSWeb.Presence,
       # Start the Endpoint (http/https)
       GEMSWeb.Endpoint,
-      GEMS.MatrixStore,
-      {Cluster.Supervisor, [topologies(), [name: GEMS.ClusterSupervisor]]}
+      GEMS.MatrixStore
+      # {Cluster.Supervisor, [topologies(), [name: GEMS.ClusterSupervisor]]}
       # Start a worker by calling: GEMS.Worker.start_link(arg)
       # {GEMS.Worker, arg}
     ]

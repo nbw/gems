@@ -24,6 +24,7 @@ if config_env() == :prod do
       raise "FLY_APP_NAME not available"
 
   config :gems, GEMSWeb.Endpoint,
+    url: [host: "#{app_name}.fly.dev", port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -33,6 +34,8 @@ if config_env() == :prod do
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
     secret_key_base: secret_key_base
+
+  config :gems, GEMSWeb.Endpoint, server: true
 
   # ## Using releases
   #
@@ -44,15 +47,15 @@ if config_env() == :prod do
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
 
-  config :libcluster,
-    topologies: [
-      fly_cluster: [
-        strategy: Elixir.Cluster.Strategy.DNSPoll,
-        config: [
-          polling_interval: 5_000,
-          query: "#{app_name}.internal",
-          node_basename: app_name
-        ]
-      ]
-    ]
+  # config :libcluster,
+  #   topologies: [
+  #     fly_cluster: [
+  #       strategy: Elixir.Cluster.Strategy.DNSPoll,
+  #       config: [
+  #         polling_interval: 5_000,
+  #         query: "#{app_name}.internal",
+  #         node_basename: app_name
+  #       ]
+  #     ]
+  #   ]
 end
