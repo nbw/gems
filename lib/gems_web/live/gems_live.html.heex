@@ -1,5 +1,5 @@
-<GEMSWeb.Components.AudioModal.render topic={@topic}/>
-<GEMSWeb.Components.Presence.render users={@global[:users]} />
+<GEMSWeb.Components.AudioModal.modal topic={@topic}/>
+<GEMSWeb.Components.Presence.count users={@global[:users]} />
 <section class="section" data-section="matrix">
   <% matrix = @global[:matrix] %>
   <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
@@ -14,7 +14,7 @@
   />
 </section>
 <section class="section" data-section="cables">
-  <GEMSWeb.Components.Cables.render />
+  <GEMSWeb.Components.Cables.show />
 </section>
 <section class="section" data-section="controls">
   <div id="control" class="control-row justify-around">

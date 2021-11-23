@@ -4,7 +4,6 @@ defmodule GEMSWeb.GEMSLive do
   import GEMS.Util.Time
 
   alias GEMS.Matrix
-  alias GEMS.Music
   alias GEMSWeb.PubSub
   alias GEMSWeb.Presence
   alias GEMS.MatrixStore, as: Store
@@ -169,7 +168,7 @@ defmodule GEMSWeb.GEMSLive do
 
   # callback for Presence when a user connects/disconnects
   def handle_info(
-        %{event: "presence_diff", payload: %{joins: joins, leaves: leaves} = payload},
+        %{event: "presence_diff", payload: _payload},
         %{assigns: %{topic: topic, global: g}} = socket
       ) do
     {:noreply, assign(socket, :global, %{g | users: Presence.user_count(topic)})}
@@ -185,7 +184,7 @@ defmodule GEMSWeb.GEMSLive do
     else
       "room:private:" <> room = topic
       url = Routes.room_gems_path(socket, :show, room, m: Base.url_encode64(m.board))
-      socket = push_patch(socket, to: url)
+      push_patch(socket, to: url)
     end
   end
 end

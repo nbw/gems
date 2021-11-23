@@ -9,7 +9,7 @@ defmodule GEMSWeb.Components.AudioModal do
     |> JS.hide(transition: "fade-out-scale", to: "#modal-content")
   end
 
-  def render(%{topic: topic} = assigns) do
+  def modal(%{topic: topic} = assigns) do
     ~H"""
     <div id="modal" class="phx-modal" phx-remove={hide_modal()}>
       <div

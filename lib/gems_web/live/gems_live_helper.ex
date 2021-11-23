@@ -7,7 +7,7 @@ defmodule GEMSWeb.GEMSLiveHelper do
   def pad_number(num, pad) do
     num
     |> Integer.to_string()
-    |> String.pad_leading(3, "0")
+    |> String.pad_leading(pad, "0")
   end
 
   defdelegate scale_name(i), to: Music

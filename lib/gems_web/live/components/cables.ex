@@ -1,7 +1,7 @@
 defmodule GEMSWeb.Components.Cables do
   use Phoenix.Component
 
-  def render(assigns) do
+  def show(assigns) do
     ~H"""
     <div class="cables mx-4">
       <div class="cables-mid">
