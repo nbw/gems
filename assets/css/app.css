@@ -239,10 +239,10 @@ input[type="range"]::-ms-thumb {
 }
 
 .matrix-item.indicator {
-  width: 1.9vw;
-  height: 1.9vw;
-  margin: 2vw;
-  @apply md:m-4 rounded-full;
+  width: 1.8vw;
+  height: 1.8vw;
+  margin: 1vw 2vw;
+  @apply md:mb-2 md:mt-1 md:mx-4 md:w-2 md:h-2 rounded-full;
 }
 
 .control {
