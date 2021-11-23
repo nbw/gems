@@ -46,16 +46,16 @@ if config_env() == :prod do
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
-
-  # config :libcluster,
-  #   topologies: [
-  #     fly_cluster: [
-  #       strategy: Elixir.Cluster.Strategy.DNSPoll,
-  #       config: [
-  #         polling_interval: 5_000,
-  #         query: "#{app_name}.internal",
-  #         node_basename: app_name
-  #       ]
-  #     ]
-  #   ]
+  config :libcluster,
+    debug: true,
+    topologies: [
+      fly6pn: [
+        strategy: Cluster.Strategy.DNSPoll,
+        config: [
+          polling_interval: 5_000,
+          query: "#{app_name}.internal",
+          node_basename: app_name
+        ]
+      ]
+    ]
 end
