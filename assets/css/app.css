@@ -456,6 +456,10 @@ body.dark .mode-switch img {
   content: url(/images/moonx20.png);
 }
 
+.region {
+  @apply border py-1 px-4 text-center uppercase inline-block;
+}
+
 /* ===== COLOR ===== */
 
 .alert-danger {
