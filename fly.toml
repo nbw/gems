@@ -1,4 +1,4 @@
-# fly.toml file generated for gems on 2021-11-23T15:20:39+09:00
+# fly.toml file generated for gems on 2021-11-23T20:08:34+09:00
 
 app = "gems"
 
@@ -14,7 +14,7 @@ processes = []
 
 [[services]]
   http_checks = []
-  internal_port = 8080
+  internal_port = 4000
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
