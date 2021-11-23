@@ -179,6 +179,10 @@ input[type="range"]::-ms-thumb {
   @apply mb-4;
 }
 
+.modal-content section:not(:last-child) {
+  @apply mb-4;
+}
+
 .modal-button {
   @apply block mx-auto p-2;
   @apply border;
