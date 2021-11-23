@@ -23,12 +23,12 @@ defmodule GEMSWeb.Components.AudioModal do
           <button id="audio-btn" class="modal-button" phx-click={hide_modal()}>enable audio</button>
         </section>
         <section>
-          <hr class="my-4" />
-          <p class="uppercase text-center">Dark/Light Mode</p>
+          <hr/>
+          <p class="modal-header">Dark/Light Mode</p>
           <GEMSWeb.Components.ModeSwitch.button />
         </section>
         <section>
-          <hr class="my-4" />
+          <hr/>
           <%= if public_room?(topic) do %>
             <p>
               Alternatively, you can create a private room by clicking the link below:
@@ -37,7 +37,7 @@ defmodule GEMSWeb.Components.AudioModal do
               <%= live_patch "private room", to: Routes.room_path(GEMSWeb.Endpoint, :new) %>
             </div>
           <% else %>
-            <p class="uppercase text-center">Private mode</p>
+            <p class="modal-header">Private mode</p>
             <p>A few things to know:</p>
             <ul>
               <li>the matrix/grid state is saved in the url of the page (not the server)</li>

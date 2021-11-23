@@ -3,7 +3,7 @@ defmodule GEMSWeb.Components.Cables do
 
   def show(assigns) do
     ~H"""
-    <div class="cables mx-4">
+    <div class="cables">
       <div class="cables-mid">
         <div class="cable">
           <div class="cable-top"></div>

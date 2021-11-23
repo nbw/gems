@@ -3,7 +3,7 @@
     <tbody>
       <tr>
         <td>
-          <label class="control-label">TEMPO <span class='box-label'><%= pad_number(@local[:tempo], 3) %></span></label>
+          <label class="control-label">TEMPO <span class="box-label"><%= pad_number(@local[:tempo], 3) %></span></label>
         </td>
         <td>
           <%= range_input :slider, :tempo, class: "slider", min: 60, max: 300, value: @local[:tempo], "data-value-ms": tempo_ms(@local[:tempo]) %>
@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td>
-          <label class="control-label">REVERB <span class='box-label'><%= pad_number(@local[:reverb], 3) %></span></label>
+          <label class="control-label">REVERB <span class="box-label"><%= pad_number(@local[:reverb], 3) %></span></label>
         </td>
         <td>
           <%= range_input :slider, :reverb, class: "slider", min: 0, max: 100, value: @local[:reverb] %>
@@ -19,7 +19,7 @@
       </tr>
       <tr>
         <td>
-          <label class="control-label">DELAY <span class='box-label'><%= pad_number(@local[:delay], 3) %></span></label>
+          <label class="control-label">DELAY <span class="box-label"><%= pad_number(@local[:delay], 3) %></span></label>
         </td>
         <td>
           <%= range_input :slider, :delay, class: "slider", min: 0, max: 100, value: @local[:delay] %>
@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td>
-          <label class="control-label">KEY <span class='box-label'><%= get_key(@local[:key]) %></span></label>
+          <label class="control-label">KEY <span class="box-label"><%= get_key(@local[:key]) %></span></label>
         </td>
         <td>
           <button class="control-btn" phx-click="inc" phx-value-max="24" phx-value-action="-" value="key">

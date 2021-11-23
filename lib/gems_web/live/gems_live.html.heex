@@ -18,17 +18,15 @@
 </section>
 <section class="section" data-section="controls">
   <div id="control" class="control-row justify-around">
-    <div class="control flex-grow">
+    <div class="control control-grow">
       <.live_component module={GEMSWeb.Components.Adsr} id="adsr" adsr={@local[:adsr]} />
     </div>
-    <div class="control flex-shrink">
+    <div class="control control-shrink">
       <.live_component module={GEMSWeb.Components.LocalControl} id="local-control" local={@local} />
     </div>
-    <%= if !public_room?(@topic) do %>
-      <div class="control w-full border-t">
-        <.live_component module={GEMSWeb.Components.GlobalControl} id="global-control" />
-      </div>
-    <% end %>
+    <div class="control control-full control-bottom">
+      <.live_component module={GEMSWeb.Components.GlobalControl} id="global-control" />
+    </div>
   </div>
 </section>
 <GEMSWeb.Components.Content.render  />

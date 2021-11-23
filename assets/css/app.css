@@ -171,6 +171,10 @@ input[type="range"]::-ms-thumb {
   cursor: pointer;
 }
 
+.content-center {
+  @apply text-center;
+}
+
 .modal-content {
   @apply max-w-xs;
 }
@@ -179,14 +183,18 @@ input[type="range"]::-ms-thumb {
   @apply mb-4;
 }
 
-.modal-content section:not(:last-child) {
-  @apply mb-4;
+.modal-content hr {
+  @apply my-4;
 }
 
 .modal-button {
   @apply block mx-auto p-2;
   @apply border;
   @apply uppercase;
+}
+
+.modal-header {
+  @apply text-center uppercase;
 }
 
 .private {
@@ -276,6 +284,26 @@ input[type="range"]::-ms-thumb {
   border-left-color: white;
 }
 
+.control-global {
+  @apply p-1;
+}
+
+.control-full {
+  @apply w-full;
+}
+
+.control-grow {
+  @apply flex-grow;
+}
+
+.control-shrink {
+  @apply flex-shrink;
+}
+
+.control-bottom {
+  @apply border-t;
+}
+
 #control {
   border-style: solid;
   border-width: 1px;
@@ -319,7 +347,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .cables {
-  @apply flex flex-col flex-wrap items-center;
+  @apply flex flex-col flex-wrap items-center mx-4;
 }
 
 .cables-bottom {
