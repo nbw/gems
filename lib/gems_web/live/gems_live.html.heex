@@ -1,11 +1,8 @@
 <GEMSWeb.Components.AudioModal.render topic={@topic}/>
-<% matrix = @global[:matrix] %>
-<% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
-<div class="presence">
-  <span><%= @global[:users] %></span>
-  <img class="logo"/>
-</div>
+<GEMSWeb.Components.Presence.render users={@global[:users]} />
 <section class="section" data-section="matrix">
+  <% matrix = @global[:matrix] %>
+  <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
   <.live_component
     module={GEMSWeb.Components.Matrix}
     id="matrix"
@@ -17,35 +14,21 @@
   />
 </section>
 <section class="section" data-section="cables">
-    <div class="cables mx-4">
-      <div class="cables-mid">
-        <div class="cable">
-          <div class="cable-top"></div>
-          <div class="cable-mid"></div>
-          <div class="cable-bot"></div>
-        </div>
-        <div class="cable">
-          <div class="cable-top"></div>
-          <div class="cable-mid"></div>
-          <div class="cable-bot"></div>
-        </div>
-        <div class="cable">
-          <div class="cable-top"></div>
-          <div class="cable-mid"></div>
-          <div class="cable-bot"></div>
-        </div>
-      </div>
-      <div class="cables-bottom"></div>
-  </div>
+  <GEMSWeb.Components.Cables.render />
 </section>
 <section class="section" data-section="controls">
   <div id="control" class="control-row justify-around">
     <div class="control flex-grow">
       <.live_component module={GEMSWeb.Components.Adsr} id="adsr" adsr={@local[:adsr]} />
     </div>
-    <div class="control ml-4 flex-shrink">
+    <div class="control flex-shrink">
       <.live_component module={GEMSWeb.Components.LocalControl} id="local-control" local={@local} />
     </div>
+    <%= if !public_room?(@topic) do %>
+      <div class="control w-full border-t">
+        <.live_component module={GEMSWeb.Components.GlobalControl} id="global-control" />
+      </div>
+    <% end %>
   </div>
 </section>
 <GEMSWeb.Components.Content.render  />

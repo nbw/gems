@@ -129,6 +129,29 @@ defmodule GEMSWeb.GEMSLive do
     {:noreply, assign(socket, :local, Map.put(local, key, new))}
   end
 
+  def handle_event("reset", _, %{assigns: %{topic: topic}} = socket) do
+    PubSub.broadcast(topic, :matrix_reset)
+
+    {:noreply, socket}
+  end
+
+  def handle_info(
+        :matrix_reset,
+        %{assigns: %{topic: topic, global: g}} = socket
+      ) do
+    with {:ok, m} <- new_matrix(@size) do
+      socket =
+        assign(socket, :global, %{g | matrix: m})
+        |> save_board_to_url()
+
+      if public_room?(topic) do
+        Store.update(m.board, now())
+      end
+
+      {:noreply, assign(socket, :global, %{g | matrix: m})}
+    end
+  end
+
   def handle_info(
         {:matrix_update, %{x: x, y: y, v: v}},
         %{assigns: %{topic: topic, global: %{matrix: m} = g}} = socket
