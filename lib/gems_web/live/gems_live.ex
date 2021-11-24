@@ -124,7 +124,19 @@ defmodule GEMSWeb.GEMSLive do
       end
 
     # wrap around
-    new = rem(new + max, max)
+    new =
+      cond do
+        new >= max ->
+          -1 * max
+
+        new <= -1 * max ->
+          max
+
+        true ->
+          new
+      end
+
+    # rem(new + max, max)
 
     {:noreply, assign(socket, :local, Map.put(local, key, new))}
   end

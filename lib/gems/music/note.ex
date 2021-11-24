@@ -28,7 +28,7 @@ defmodule GEMS.Music.Note do
 
   @doc false
   def octave(num) when num < 0 do
-    div(num, 12) - 1
+    div(num + 1, 12) - 1
   end
 
   @doc false
