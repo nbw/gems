@@ -536,7 +536,8 @@ body.dark .mode-switch img {
   @apply bg-black;
 }
 
-.modal-button {
+.modal-button,
+.control-btn:hover {
   @apply text-white;
 }
 

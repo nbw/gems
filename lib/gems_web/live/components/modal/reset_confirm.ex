@@ -21,7 +21,7 @@ defmodule GEMSWeb.Components.Modal.ResetConfirm do
     <C.Modal.modal id_prefix={prefix()} hide={true} phx-remove={hide()} >
       <section>
         <p class="modal-header">Clear Matrix</p>
-        <p>Clearing the matrix/grid affect anyone else connected to the page.</p>
+        <p>Clearing the matrix/grid will affect everyone else connected to the page.</p>
         <p class="content-center">Are you sure?</p>
         <div class="modal-button-group">
           <button
