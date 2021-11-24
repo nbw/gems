@@ -7,6 +7,7 @@ defmodule GEMSWeb.GEMSLive do
   alias GEMSWeb.PubSub
   alias GEMSWeb.Presence
   alias GEMS.MatrixStore, as: Store
+  alias GEMSWeb.Components
 
   @size 16
   @default_tempo 180

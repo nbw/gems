@@ -4,7 +4,7 @@ defmodule GEMSWeb.Components.Modal do
 
   def modal(%{id_prefix: id_prefix} = assigns) do
     ~H"""
-    <div id={"#{id_prefix}-modal"} class="phx-modal">
+    <div id={"#{id_prefix}-modal"} class={"phx-modal" <> hide?(assigns)}>
       <div
         id={"#{id_prefix}-modal-content"}
         class="phx-modal-content modal-content"
@@ -15,4 +15,7 @@ defmodule GEMSWeb.Components.Modal do
     </div>
     """
   end
+
+  defp hide?(%{hide: true}), do: " modal-hide"
+  defp hide?(_), do: ""
 end

@@ -1,8 +1,7 @@
-defmodule GEMSWeb.Components.Modal.Audio do
+defmodule GEMSWeb.Components.Modal.AudioEnable do
   use GEMSWeb, :live_component
 
   alias Phoenix.LiveView.JS
-  alias GEMSWeb.Components.Modal
 
   @prefix "audio"
 
@@ -15,7 +14,7 @@ defmodule GEMSWeb.Components.Modal.Audio do
 
   def modal(%{topic: topic} = assigns) do
     ~H"""
-    <Modal.modal id_prefix={prefix()} phx-remove={hide_modal()}>
+    <C.Modal.modal id_prefix={prefix()} phx-remove={hide_modal()}>
       <section>
         <p>Welcome to GEMS.</p>
         <p>Audio will have to be enabled before you can continue.</p>
@@ -24,7 +23,7 @@ defmodule GEMSWeb.Components.Modal.Audio do
       <section>
         <hr/>
         <p class="modal-header">Dark/Light Mode</p>
-        <GEMSWeb.Components.ModeSwitch.button />
+        <C.ModeSwitch.button />
       </section>
       <section>
         <hr/>
@@ -44,7 +43,7 @@ defmodule GEMSWeb.Components.Modal.Audio do
           </ul>
         <% end %>
       </section>
-    </Modal.modal>
+    </C.Modal.modal>
     """
   end
 

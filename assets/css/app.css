@@ -187,10 +187,22 @@ input[type="range"]::-ms-thumb {
   @apply my-4;
 }
 
+.modal-hide {
+  @apply hidden;
+}
+
 .modal-button {
   @apply block mx-auto p-2;
   @apply border;
   @apply uppercase;
+}
+
+.modal-button-group {
+  @apply text-center;
+}
+
+.modal-button-group > * {
+  @apply m-1 inline-block;
 }
 
 .modal-header {
@@ -275,7 +287,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .control-btn {
-  @apply border p-2 mx-0.5;
+  @apply border p-1 mx-0.5 uppercase;
 }
 
 .control-btn:hover {

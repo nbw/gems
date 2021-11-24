@@ -87,6 +87,7 @@ defmodule GEMSWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
+      alias Phoenix.LiveView.JS
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
@@ -94,6 +95,7 @@ defmodule GEMSWeb do
       import GEMSWeb.ErrorHelpers
       import GEMSWeb.Gettext
       alias GEMSWeb.Router.Helpers, as: Routes
+      alias GEMSWeb.Components, as: C
     end
   end
 

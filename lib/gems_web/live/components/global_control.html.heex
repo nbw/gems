@@ -1,5 +1,9 @@
 <div class="control-global">
-  <button class="control-btn" phx-throttle="500" phx-click="reset"> 
-    Reset
+  <button
+    class="control-btn"
+    phx-throttle="500"
+    phx-click={JS.show(to: "#reset-modal")}
+  >
+    Clear Matrix
   </button>
 </div>

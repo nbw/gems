@@ -1,10 +1,11 @@
-<GEMSWeb.Components.Modal.Audio.modal topic={@topic} />
-<GEMSWeb.Components.Presence.count users={@global[:users]} />
+<C.Modal.AudioEnable.modal topic={@topic} />
+<C.Modal.ResetConfirm.modal />
+<C.Presence.count users={@global[:users]} />
 <section class="section" data-section="matrix">
   <% matrix = @global[:matrix] %>
   <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
   <.live_component
-    module={GEMSWeb.Components.Matrix}
+    module={C.Matrix}
     id="matrix"
     matrix={matrix}
     w={matrix.w}
@@ -14,19 +15,19 @@
   />
 </section>
 <section class="section" data-section="cables">
-  <GEMSWeb.Components.Cables.show />
+  <C.Cables.show />
 </section>
 <section class="section" data-section="controls">
   <div id="control" class="control-row justify-around">
     <div class="control control-grow">
-      <.live_component module={GEMSWeb.Components.Adsr} id="adsr" adsr={@local[:adsr]} />
+      <.live_component module={C.Adsr} id="adsr" adsr={@local[:adsr]} />
     </div>
     <div class="control control-shrink">
-      <.live_component module={GEMSWeb.Components.LocalControl} id="local-control" local={@local} />
+      <.live_component module={C.LocalControl} id="local-control" local={@local} />
     </div>
     <div class="control control-full control-bottom">
-      <.live_component module={GEMSWeb.Components.GlobalControl} id="global-control" />
+      <.live_component module={C.GlobalControl} id="global-control" />
     </div>
   </div>
 </section>
-<GEMSWeb.Components.Content.render  />
+<C.Content.render />
