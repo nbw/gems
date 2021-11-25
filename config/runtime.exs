@@ -23,8 +23,10 @@ if config_env() == :prod do
     System.get_env("FLY_APP_NAME") ||
       raise "FLY_APP_NAME not available"
 
+  host = System.get_env("HOST") || "#{app_name}.fly.dev"
+
   config :gems, GEMSWeb.Endpoint,
-    url: [host: "#{app_name}.fly.dev", port: 80],
+    url: [host: host, port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
