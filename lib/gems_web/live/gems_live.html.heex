@@ -4,15 +4,7 @@
 <section class="section" data-section="matrix" id="matrix" phx-hook="Mounted">
   <% matrix = @global[:matrix] %>
   <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
-  <.live_component
-    module={C.Matrix}
-    id="matrix"
-    matrix={matrix}
-    w={matrix.w}
-    h={matrix.h}
-    notes={notes}
-    current={@local[:current]}
-  />
+  <.live_component module={C.Matrix} id="matrix" matrix={matrix} notes={notes} />
 </section>
 <section class="section" data-section="cables">
   <C.Cables.show />
