@@ -12,9 +12,9 @@ defmodule GEMSWeb.Components.Modal.AudioEnable do
     |> JS.hide(transition: "fade-out-scale", to: "##{@prefix}-modal-content")
   end
 
-  def modal(%{topic: topic} = assigns) do
+  def render(%{topic: topic} = assigns) do
     ~H"""
-    <C.Modal.modal id_prefix={prefix()} phx-remove={hide_modal()}>
+    <C.Modal.render id_prefix={prefix()} phx-remove={hide_modal()}>
       <section>
         <p>Welcome to GEMS.</p>
         <p>Audio will have to be enabled before you can continue.</p>
@@ -43,7 +43,7 @@ defmodule GEMSWeb.Components.Modal.AudioEnable do
           </ul>
         <% end %>
       </section>
-    </C.Modal.modal>
+    </C.Modal.render>
     """
   end
 

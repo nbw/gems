@@ -1,8 +1,7 @@
 defmodule GEMSWeb.Components.Modal do
   use GEMSWeb, :live_component
-  alias Phoenix.LiveView.JS
 
-  def modal(%{id_prefix: id_prefix} = assigns) do
+  def render(%{id_prefix: id_prefix} = assigns) do
     ~H"""
     <div id={"#{id_prefix}-modal"} class={"phx-modal" <> hide?(assigns)}>
       <div

@@ -12,13 +12,14 @@ defmodule GEMSWeb.Components.Modal.ResetConfirm do
   end
 
   def hide_and_reset(js \\ %JS{}) do
-    JS.push("reset")
+    js
+    |> JS.push("reset")
     |> JS.hide(to: "##{prefix()}-modal")
   end
 
-  def modal(assigns) do
+  def render(assigns) do
     ~H"""
-    <C.Modal.modal id_prefix={prefix()} hide={true} phx-remove={hide()} >
+    <C.Modal.render id_prefix={prefix()} hide={true} phx-remove={hide()} >
       <section>
         <p class="modal-header">Clear Matrix</p>
         <p>Clearing the matrix/grid will affect everyone else connected to the page.</p>
@@ -35,14 +36,14 @@ defmodule GEMSWeb.Components.Modal.ResetConfirm do
           <button
             class="modal-button"
             phx-throttle="500"
-            phx-click={ hide}
+            phx-click={hide()}
             phx-click-away={hide()}
           >
             Cancel
           </button>
         </div>
       </section>
-    </C.Modal.modal>
+    </C.Modal.render>
     """
   end
 

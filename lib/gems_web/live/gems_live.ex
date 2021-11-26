@@ -7,7 +7,6 @@ defmodule GEMSWeb.GEMSLive do
   alias GEMSWeb.PubSub
   alias GEMSWeb.Presence
   alias GEMS.MatrixStore, as: Store
-  alias GEMSWeb.Components
 
   @size 16
   @default_tempo 180
@@ -62,7 +61,7 @@ defmodule GEMSWeb.GEMSLive do
   def handle_event(
         "matrix-item",
         %{"col" => x, "row" => y, "value" => v},
-        %{assigns: %{topic: topic, global: %{matrix: m}}} = socket
+        %{assigns: %{topic: topic}} = socket
       ) do
     {x, ""} = Integer.parse(x)
     {y, ""} = Integer.parse(y)

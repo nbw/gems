@@ -2,8 +2,6 @@ defmodule GEMSWeb.Components.Matrix do
   use GEMSWeb, :live_view
   use Phoenix.LiveComponent
 
-  alias GEMSWeb.Music
-
   def active_column?(current, col) when current == col do
     " active"
   end
