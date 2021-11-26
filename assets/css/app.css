@@ -424,12 +424,12 @@ input[type="range"]::-ms-thumb {
   @apply flex flex-row items-center justify-center;
 }
 
-.presence img.logo {
+.human {
   content: url(/images/person.png);
   @apply mx-1 mb-1;
 }
 
-body.dark .presence img.logo {
+body.dark .human {
   content: url(/images/person_dark.png);
 }
 
@@ -504,6 +504,19 @@ body.dark .mode-switch img {
 
 .region {
   @apply border py-1 px-4 text-center uppercase inline-block;
+}
+
+footer {
+  @apply uppercase flex justify-around md:justify-start border-t pt-4;
+}
+
+footer ul {
+  @apply mx-0 mr-0 md:mr-20;
+  min-width: 50px;
+}
+
+footer li {
+  @apply list-none;
 }
 
 /* ===== COLOR ===== */

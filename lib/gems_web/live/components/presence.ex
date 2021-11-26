@@ -5,7 +5,7 @@ defmodule GEMSWeb.Components.Presence do
     ~H"""
     <div class="presence">
       <span><%= users %></span>
-      <img class="logo"/>
+      <img class="human"/>
     </div>
     """
   end
