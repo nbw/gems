@@ -1,7 +1,7 @@
 <C.Modal.AudioEnable.modal topic={@topic} />
 <C.Modal.ResetConfirm.modal />
 <C.Presence.count users={@global[:users]} />
-<section class="section" data-section="matrix">
+<section class="section" data-section="matrix" id="matrix" phx-hook="Mounted">
   <% matrix = @global[:matrix] %>
   <% notes = get_notes(@local[:key], @local[:scale], matrix.w) %>
   <.live_component

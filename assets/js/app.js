@@ -38,13 +38,15 @@ const delayId = "slider_delay";
 const tempoId = "slider_tempo";
 
 // light/dark mode
-const modeBtns = document.getElementsByClassName(modeBtnClass);
-if (modeBtns.length > 0) {
-  for (let i = 0; i < modeBtns.length; i++) {
-    modeBtns[i].addEventListener("click", (e) => {
-      const body = document.body;
-      body.classList.toggle("dark");
-    });
+const setupLightDarkMode = () => {
+  const modeBtns = document.getElementsByClassName(modeBtnClass);
+  if (modeBtns.length > 0) {
+    for (let i = 0; i < modeBtns.length; i++) {
+      modeBtns[i].addEventListener("click", (e) => {
+        const body = document.body;
+        body.classList.toggle("dark");
+      });
+    }
   }
 }
 
@@ -95,7 +97,7 @@ if (document.getElementById(audioBtnId)) {
  *
  * Make noise for each active item in a matrix column
  */
-let beep = (col) => {
+const beep = (col) => {
   let notes = [];
   for (let i = 0; i < col.children.length; i++) {
     if (col.children[i].classList.contains("active")) {
@@ -140,8 +142,15 @@ const tic = (i) => {
 }
 tic(0);
 
+let Hooks = {}
+Hooks.Mounted = {
+  mounted() {
+    setupLightDarkMode();
+  }
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
 
 // connect if there are any LiveViews` on the page
 liveSocket.connect()
