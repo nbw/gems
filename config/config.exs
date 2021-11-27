@@ -9,9 +9,9 @@ import Config
 
 config :gems,
   namespace: GEMS,
-  github: System.get_env("GITHUB") || "https://github.com/",
-  twitter: System.get_env("TWITTER") || "https://twitter.com/",
-  insta: System.get_env("INSTAGRAM") || "https://instagram/"
+  github: "https://github.com/",
+  twitter: "https://twitter.com/",
+  insta: "https://instagram/"
 
 # Configures the endpoint
 config :gems, GEMSWeb.Endpoint,
