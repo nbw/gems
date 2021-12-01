@@ -1,0 +1,56 @@
+<form class="control-col control-col-r" phx-change="local-control" onsubmit="return false;">
+  <table class='control-table'>
+    <tbody>
+      <tr>
+        <td>
+          <label class="control-label">TEMPO <span class="box-label"><%= pad_number(@local[:tempo], 3) %></span></label>
+        </td>
+        <td>
+          <%= range_input :slider, :tempo, class: "slider", min: 60, max: 300, value: @local[:tempo], "data-value-ms": tempo_ms(@local[:tempo]) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="control-label">REVERB <span class="box-label"><%= pad_number(@local[:reverb], 3) %></span></label>
+        </td>
+        <td>
+          <%= range_input :slider, :reverb, class: "slider", min: 0, max: 100, value: @local[:reverb] %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="control-label">DELAY <span class="box-label"><%= pad_number(@local[:delay], 3) %></span></label>
+        </td>
+        <td>
+          <%= range_input :slider, :delay, class: "slider", min: 0, max: 100, value: @local[:delay] %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="control-label">KEY <span class="box-label"><%= get_key(@local[:key]) %></span></label>
+        </td>
+        <td>
+          <button class="control-btn" phx-click="inc" phx-value-max="24" phx-value-action="-" value="key">
+            <div class="arrow arrow-left"></div>
+          </button>
+          <button class="control-btn" phx-click="inc" phx-value-max="24" phx-value-action="+" value="key">
+            <div class="arrow arrow-right"></div>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="control-label">SCALE <span class='box-label'><%= scale_name(@local[:scale]) %></span></label>
+        </td>
+        <td>
+          <button class="control-btn" phx-click="inc" phx-value-max="10" phx-value-action="-" value="scale">
+            <div class="arrow arrow-left"></div>
+          </button>
+          <button class="control-btn" phx-click="inc" phx-value-max="10" phx-value-action="+" value="scale">
+            <div class="arrow arrow-right"></div>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

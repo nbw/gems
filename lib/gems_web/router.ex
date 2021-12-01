@@ -17,7 +17,13 @@ defmodule GEMSWeb.Router do
   scope "/", GEMSWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    resources "/rooms", RoomController, only: [:new]
+
+    live("/", GEMSLive)
+
+    scope "/r", as: :room do
+      live("/:room", GEMSLive, :show)
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -9,14 +9,22 @@ import Config
 config :gems, GEMSWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
-  check_origin: false,
-  code_reloader: true,
+  http: [ip: {0, 0, 0, 0}, port: System.get_env("PORT") || 4000],
   debug_errors: true,
   secret_key_base: "hH39YeFxbSKcmKAphlJUeCa0U3WUVhL44gg1UJbHK+3LasNYA9dmCFzDACCHR+C5",
+  code_reloader: true,
+  check_origin: false,
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../priv/static/assets/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
+    ]
   ]
 
 # ## SSL Support
@@ -63,3 +71,10 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :libcluster,
+  topologies: [
+    local_cluster: [
+      strategy: Cluster.Strategy.Gossip
+    ]
+  ]

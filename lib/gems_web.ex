@@ -47,6 +47,8 @@ defmodule GEMSWeb do
       use Phoenix.LiveView,
         layout: {GEMSWeb.LayoutView, "live.html"}
 
+      import GEMSWeb.GEMSLiveHelper
+
       unquote(view_helpers())
     end
   end
@@ -54,6 +56,8 @@ defmodule GEMSWeb do
   def live_component do
     quote do
       use Phoenix.LiveComponent
+      import GEMSWeb.GEMSLiveHelper
+      alias GEMSWeb.Router.Helpers, as: Routes
 
       unquote(view_helpers())
     end
@@ -83,6 +87,7 @@ defmodule GEMSWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
+      alias Phoenix.LiveView.JS
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
@@ -90,6 +95,7 @@ defmodule GEMSWeb do
       import GEMSWeb.ErrorHelpers
       import GEMSWeb.Gettext
       alias GEMSWeb.Router.Helpers, as: Routes
+      alias GEMSWeb.Components, as: C
     end
   end
 

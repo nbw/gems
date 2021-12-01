@@ -1,11 +1,20 @@
 <main class="container">
-  <p class="alert alert-info" role="alert"
-    phx-click="lv:clear-flash"
-    phx-value-key="info"><%= live_flash(@flash, :info) %></p>
-
   <p class="alert alert-danger" role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="error"><%= live_flash(@flash, :error) %></p>
-
   <%= @inner_content %>
 </main>
+<footer>
+  <ul>
+    <li><%= link "Home", to: Routes.live_path(GEMSWeb.Endpoint, GEMSWeb.GEMSLive) %></li>
+    <li><%= link "Private Room", to: Routes.room_path(GEMSWeb.Endpoint, :new) %></li>
+  </ul>
+  <ul>
+    <li><%= link "Twitter", to: Application.fetch_env!(:gems, :twitter) %></li>
+    <li><%= link "Instagram", to: Application.fetch_env!(:gems, :insta) %></li>
+  </ul>
+  <ul>
+    <li><%= link "Code", to: Application.fetch_env!(:gems, :github) %></li>
+    <li><img class="human"/></li>
+  </ul>
+</footer>

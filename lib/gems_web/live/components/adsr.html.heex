@@ -1,0 +1,18 @@
+<div id="adsr" class="control-row">
+  <div class="control-1-2">
+    <div class="graph">
+      <%= C.AdsrGraph.graph(%{adsr: @adsr, w: 170, h: 120}) %>
+    </div>
+  </div>
+  <div class="control-col">
+    <label>ADSR</label>
+    <form class="control-col" phx-change="adsr" onsubmit="return false;">
+      <%= for v <- [:a, :d, :s, :r] do %>
+      <div>
+        <label><%= v %></label>
+        <%= range_input :slider, v, id: v, class: "slider", min: 0, max: 100, value: @adsr[v], "data-value": adsr_normalize(@adsr[v], v) %>
+      </div>
+      <% end %>
+    </form>
+  </div>
+</div>

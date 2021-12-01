@@ -12,8 +12,11 @@ defmodule GEMS.Application do
       GEMSWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: GEMS.PubSub},
+      GEMSWeb.Presence,
       # Start the Endpoint (http/https)
-      GEMSWeb.Endpoint
+      GEMSWeb.Endpoint,
+      GEMS.MatrixStore,
+      {Cluster.Supervisor, [topologies(), [name: GEMS.ClusterSupervisor]]}
       # Start a worker by calling: GEMS.Worker.start_link(arg)
       # {GEMS.Worker, arg}
     ]
@@ -30,5 +33,9 @@ defmodule GEMS.Application do
   def config_change(changed, _new, removed) do
     GEMSWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp topologies do
+    Application.get_env(:libcluster, :topologies) || []
   end
 end

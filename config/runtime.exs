@@ -7,6 +7,11 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
+  config :gems,
+    github: System.get_env("GITHUB"),
+    twitter: System.get_env("TWITTER"),
+    insta: System.get_env("INSTAGRAM")
+
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -19,7 +24,14 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  app_name =
+    System.get_env("FLY_APP_NAME") ||
+      raise "FLY_APP_NAME not available"
+
+  host = System.get_env("HOST") || "#{app_name}.fly.dev"
+
   config :gems, GEMSWeb.Endpoint,
+    url: [host: host, port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
@@ -30,6 +42,8 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :gems, GEMSWeb.Endpoint, server: true
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
@@ -39,4 +53,16 @@ if config_env() == :prod do
   #
   # Then you can assemble a release by calling `mix release`.
   # See `mix help release` for more information.
+  config :libcluster,
+    debug: true,
+    topologies: [
+      fly6pn: [
+        strategy: Cluster.Strategy.DNSPoll,
+        config: [
+          polling_interval: 5_000,
+          query: "#{app_name}.internal",
+          node_basename: app_name
+        ]
+      ]
+    ]
 end

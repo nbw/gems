@@ -1,12 +1,22 @@
 /* This file is for your main application CSS */
-@import "./phoenix.css";
+@import "tailwindcss/base";
+/* @import "tailwindcss/components"; */
+@import "tailwindcss/utilities";
+
+@font-face {
+  font-family: FreePixel;
+  src: url(/fonts/FreePixel.ttf);
+}
 
 /* Alerts and form errors used by phx.new */
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  @apply my-1 p-2 mx-auto;
+  max-width: 600px;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 100;
 }
 .alert-info {
   color: #31708f;
@@ -17,11 +27,6 @@
   color: #8a6d3b;
   background-color: #fcf8e3;
   border-color: #faebcc;
-}
-.alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
 }
 .alert p {
   margin-bottom: 0;
@@ -46,15 +51,15 @@
   transition: opacity 1s ease-out;
 }
 
-.phx-disconnected{
+.phx-disconnected {
   cursor: wait;
 }
-.phx-disconnected *{
+.phx-disconnected * {
   pointer-events: none;
 }
 
 .phx-modal {
-  opacity: 1!important;
+  opacity: 1 !important;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -62,13 +67,13 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .phx-modal-content {
   background-color: #fefefe;
-  margin: 15vh auto;
+  @apply mx-auto my-6 md:my-16;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -86,4 +91,610 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* ====== GEMS CSS ====== */
+body {
+  font-family: "FreePixel", sans-serif;
+  @apply max-w-screen-md m-auto;
+}
+
+main {
+  @apply mx-1 md:mx-auto;
+}
+
+h1 {
+  font-size: 18pt;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+footer {
+  margin: 2rem auto;
+}
+
+a {
+  @apply underline;
+}
+
+ul {
+  list-style: circle;
+  @apply ml-4;
+}
+li {
+  @apply my-2;
+}
+
+section.content {
+  @apply my-14;
+}
+
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  height: 5px; /* Specified height */
+  border: 1px solid black;
+  outline: none; /* Remove outline */
+  opacity: 1; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+  margin: 0;
+}
+
+/* Special styling for WebKit/Blink */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 10px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  border: 1px solid #000000;
+  height: 12px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* IE (really though?) */
+input[type="range"]::-ms-thumb {
+  border: 1px solid #000000;
+  height: 12px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.content-center {
+  @apply text-center;
+}
+
+.modal-content {
+  @apply max-w-xs;
+}
+
+.modal-content p {
+  @apply mb-4;
+}
+
+.modal-content hr {
+  @apply my-4;
+}
+
+.modal-hide {
+  @apply hidden;
+}
+
+.modal-button {
+  @apply block mx-auto p-2;
+  @apply border;
+  @apply uppercase;
+}
+
+.modal-button-group {
+  @apply text-center;
+}
+
+.modal-button-group > * {
+  @apply m-1 inline-block;
+}
+
+.modal-header {
+  @apply text-center uppercase;
+}
+
+.private {
+  @apply text-center border block w-40 mx-auto;
+}
+
+.section {
+  @apply m-auto;
+  max-width: 675px;
+}
+
+.section[data-section="matrix"] {
+  @apply flex flex-row justify-center;
+}
+
+.section[data-section="cables"] {
+  @apply m-auto flex flex-row justify-start;
+}
+
+.section[data-section="controls"] {
+  @apply m-auto;
+}
+
+.matrix {
+  @apply inline-flex flex-row flex-wrap justify-center;
+  @apply flex-grow;
+  @apply p-0 py-1 md:mt-2 md:p-4 md:mt-6 border;
+}
+
+.matrix-col {
+  @apply flex flex-col flex-wrap flex-col-reverse justify-center;
+}
+
+.matrix-item {
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  width: 4.9vw;
+  height: 4.9vw;
+  margin: 0.5vw;
+  @apply md:m-1 md:w-8 md:h-8;
+}
+
+.matrix-item.indicator {
+  width: 1.8vw;
+  height: 1.8vw;
+  margin: 1vw 2vw;
+  @apply md:mb-2 md:mt-1 md:mx-4 md:w-2 md:h-2 rounded-full;
+}
+
+.control {
+  padding: 0.5rem;
+}
+.control:first-child {
+  @apply border-b md:border-b-0 md:border-r;
+}
+
+.control-row {
+  @apply flex flex-wrap items-center justify-evenly;
+}
+
+.control-col {
+  @apply flex flex-col flex-wrap justify-center h-full;
+}
+.control-col-r {
+  @apply content-end text-right pr-2;
+}
+
+.control-1-2 {
+  @apply w-1/2;
+}
+
+.control-1-3 {
+  @apply w-1/3;
+}
+.control-2-3 {
+  @apply w-2/3;
+}
+
+.control-btn {
+  @apply border p-1 mx-0.5 uppercase;
+}
+
+.control-btn:hover {
+  background-color: black;
+}
+
+.control-btn:hover .arrow-left {
+  border-right-color: white;
+}
+
+.control-btn:hover .arrow-right {
+  border-left-color: white;
+}
+
+.control-global {
+  @apply p-1 flex flex-wrap items-center;
+}
+
+.control-full {
+  @apply w-full;
+}
+
+.control-grow {
+  @apply flex-grow;
+}
+
+.control-shrink {
+  @apply flex-shrink;
+}
+
+.control-bottom {
+  @apply border-t;
+}
+
+#control {
+  border-style: solid;
+  border-width: 1px;
+}
+
+#adsr {
+  text-align: center;
+}
+
+#adsr .graph {
+  display: inline-flex;
+  border-width: 1px;
+  border-style: solid;
+  @apply my-4;
+}
+
+#adsr svg {
+  @apply p-4;
+}
+
+#adsr svg line {
+  stroke-width: 2;
+}
+
+.box-label {
+  @apply p-0.5;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.control-label {
+  min-width: 90px;
+}
+
+.control-table td {
+  padding: 0.15rem 0.1rem;
+  min-width: 140px;
+}
+.control-table td:nth-child(2) {
+  text-align: center;
+}
+
+.cables {
+  @apply flex flex-col flex-wrap items-center mx-4;
+}
+
+.cables-bottom {
+  width: 150px;
+  height: 4px;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+}
+
+.cables-mid {
+  @apply flex flex-row flex-wrap justify-center content-around;
+}
+
+.cable {
+  @apply flex flex-col flex-wrap items-center mx-2;
+}
+
+.cable .cable-top {
+  width: 15px;
+  height: 3px;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+}
+.cable .cable-mid {
+  width: 8px;
+  height: 15px;
+  border-style: solid;
+  border-width: 0 1px 0 1px;
+  background-repeat: repeat;
+}
+
+.cable .cable-bot {
+  width: 15px;
+  height: 3px;
+  border-style: solid;
+  border-width: 1px 1px 0 1px;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+}
+
+.arrow-left {
+  border-width: 5px 5px 5px 0;
+  border-style: solid;
+}
+
+.arrow-right {
+  border-width: 5px 0 5px 5px;
+  border-style: solid;
+}
+
+.presence {
+  @apply md:my-1 mx-1 md:absolute md:my-2 md:mx-4 md:top-0 md:right-0;
+  @apply flex flex-row items-center justify-center;
+}
+
+.human {
+  content: url(/images/person.png);
+  @apply mx-1 mb-1;
+}
+
+body.dark .human {
+  content: url(/images/person_dark.png);
+}
+
+/* ====== Light/Dark mode button ====== */
+.mode-switch {
+  text-align: center;
+}
+.mode-switch > * {
+  vertical-align: middle;
+}
+
+.mode-switch img {
+  content: url(/images/sunx20.png);
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  top: 0;
+}
+
+.switch {
+  border: solid 1px black;
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+  width: 46px;
+  height: 24px;
+}
+
+.box {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.box:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 20px;
+  top: 2px;
+  left: 2px;
+  bottom: 4px;
+  background-color: black;
+  -webkit-transition: 0.15s;
+  transition: 0.15s;
+}
+
+body.dark .mode-switch + .box {
+  background-color: #2196f3;
+}
+
+body.dark .mode-switch .box {
+  background-color: black;
+}
+
+body.dark .box:before {
+  background-color: white;
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+body.dark .mode-switch img {
+  content: url(/images/moonx20.png);
+}
+
+.region {
+  @apply border py-1 px-4 text-center uppercase inline-block;
+}
+
+footer {
+  @apply uppercase flex justify-around md:justify-start border-t pt-4;
+}
+
+footer ul {
+  @apply mx-0 mr-0 md:mr-20;
+  min-width: 50px;
+}
+
+footer li {
+  @apply list-none;
+}
+
+/* ===== COLOR ===== */
+
+.alert-danger {
+  @apply text-white bg-black border-black uppercase text-center;
+}
+
+* {
+  transition: background-color 0.1s, border-color 0.2s, border-left 0.2s,
+    border-right 0.2s, color 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+* {
+  @apply border-black;
+  @apply text-black;
+}
+
+.modal-button:hover {
+  @apply bg-white;
+}
+
+.modal-button:hover {
+  @apply text-black;
+}
+
+.modal-button,
+.control-btn:hover {
+  @apply bg-black;
+}
+
+.modal-button,
+.control-btn:hover {
+  @apply text-white;
+}
+
+.private {
+  @apply bg-white hover:bg-black;
+}
+
+.private:hover a {
+  @apply text-white;
+}
+
+#adsr svg line {
+  stroke: rgb(0, 0, 0);
+}
+
+.control-btn:hover .arrow-left {
+  border-right-color: #fff;
+}
+
+.control-btn:hover .arrow-right {
+  border-left-color: #fff;
+}
+
+.arrow-left {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: #000;
+}
+
+.arrow-right {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: #000;
+}
+
+.cable .cable-mid {
+  background-image: url("/images/texture_2.png");
+}
+
+.matrix-item.indicator.active {
+  background-image: none;
+  background-color: #ff5638; /* red */
+}
+
+.matrix-item.active {
+  background-image: url("/images/texture_1.png");
+  background-repeat: repeat;
+}
+
+.matrix-item.indicator.active ~ .matrix-item.active {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.matrix-item:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark .alert-danger {
+  @apply text-black bg-white border-black;
+}
+
+body.dark {
+  @apply bg-black;
+}
+body.dark * {
+  @apply border-white;
+  @apply text-white;
+}
+
+body.dark #adsr svg line {
+  stroke: rgb(255, 255, 255);
+}
+
+body.dark .control-btn:hover .arrow-left {
+  border-right-color: #000;
+}
+
+body.dark .control-btn:hover .arrow-right {
+  border-left-color: #000;
+}
+
+body.dark .arrow-left {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: #fff;
+}
+
+body.dark .arrow-right {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: #fff;
+}
+
+body.dark .matrix-col.active .matrix-item.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+body.dark .matrix-col.active .matrix-item.indicator {
+  background-color: #ff5638;
+}
+
+body.dark .matrix-item:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.dark .matrix-col .matrix-item.indicator.active {
+  background-image: none;
+}
+body.dark .matrix-col .matrix-item.active {
+  background-image: url("/images/texture_1_dark.png");
+}
+
+body.dark .matrix-item.indicator.active ~ .matrix-item.active {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+body.dark .cable .cable-mid {
+  background-image: url("/images/texture_2_dark.png");
+}
+
+body.dark .phx-modal {
+  background-color: rgba(100, 100, 100, 0.6);
+}
+
+body.dark .phx-modal-content {
+  background-color: #000;
+}
+
+body.dark .modal-button,
+body.dark .control-btn:hover {
+  @apply bg-white text-black;
+}
+
+body.dark .modal-button:hover {
+  @apply bg-black text-white;
+}
+
+body.dark .private {
+  @apply bg-black hover:bg-white;
+}
+body.dark .private:hover a {
+  @apply text-black;
+}
+
+body.dark .slider {
+  @apply bg-white border-black;
 }
