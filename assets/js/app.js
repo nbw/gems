@@ -60,7 +60,7 @@ if (document.getElementById(audioBtnId)) {
     Tone.context.resume().then(() => {
       console.log('Playback resumed successfully');
       synth = new Tone.PolySynth({
-        maxPolyphony: 48,
+        maxPolyphony: 64,
         voice: Tone.Synth,
         volume: -6,
         options: {
