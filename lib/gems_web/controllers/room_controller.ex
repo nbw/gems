@@ -1,6 +1,10 @@
 defmodule GEMSWeb.RoomController do
   use GEMSWeb, :controller
 
+  def new(conn, %{"s" => size}) when size in ["16", "32"] do
+    redirect(conn, to: Routes.room_gems_path(conn, :show, uniq_id(), %{s: size}))
+  end
+
   def new(conn, _params) do
     redirect(conn, to: Routes.room_gems_path(conn, :show, uniq_id()))
   end

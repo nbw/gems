@@ -8,7 +8,7 @@ defmodule GEMSWeb.GEMSLive do
   alias GEMSWeb.Presence
   alias GEMS.MatrixStore, as: Store
 
-  @size 16
+  @default_size 16
   @default_tempo 180
   @local_default %{
     key: 0,
@@ -31,9 +31,9 @@ defmodule GEMSWeb.GEMSLive do
 
     if public_room?(topic) do
       board = Store.get()
-      new_matrix(@size, board)
+      new_matrix(@default_size, board)
     else
-      new_matrix_64(@size, Map.get(params, "m"))
+      new_matrix_64(matrix_size(params), Map.get(params, "m"))
     end
     |> case do
       {:ok, matrix} ->
@@ -148,9 +148,9 @@ defmodule GEMSWeb.GEMSLive do
 
   def handle_info(
         :matrix_reset,
-        %{assigns: %{topic: topic, global: g}} = socket
+        %{assigns: %{topic: topic, global: %{matrix: m} = g}} = socket
       ) do
-    with {:ok, m} <- new_matrix(@size) do
+    with {:ok, m} <- new_matrix(m.w) do
       socket =
         assign(socket, :global, %{g | matrix: m})
         |> save_board_to_url()
@@ -194,9 +194,15 @@ defmodule GEMSWeb.GEMSLive do
     if(public_room?(socket)) do
       socket
     else
-      "room:private:" <> room = topic
-      url = Routes.room_gems_path(socket, :show, room, m: Base.url_encode64(m.board))
+      room = room_name(topic)
+      url = Routes.room_gems_path(socket, :show, room, s: m.w, m: Base.url_encode64(m.board))
       push_patch(socket, to: url)
     end
   end
+
+  defp matrix_size(%{"s" => s}) when s in ["16", "32"] do
+    String.to_integer(s)
+  end
+
+  defp matrix_size(_), do: @default_size
 end

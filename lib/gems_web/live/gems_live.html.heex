@@ -18,7 +18,7 @@
       <.live_component module={C.LocalControl} id="local-control" local={@local} />
     </div>
     <div class="control control-full control-bottom">
-      <.live_component module={C.GlobalControl} id="global-control" />
+      <.live_component module={C.GlobalControl} id="global-control" topic={@topic} size={@global[:matrix].w} />
     </div>
   </div>
 </section>
