@@ -244,17 +244,38 @@ input[type="range"]::-ms-thumb {
   border-width: 1px;
   border-style: solid;
   cursor: pointer;
+}
+
+.matrix-item-16 {
   width: 4.9vw;
   height: 4.9vw;
   margin: 0.5vw;
   @apply md:m-1 md:w-8 md:h-8;
 }
 
+.matrix-item-32 {
+  width: 2.45vw;
+  height: 2.45vw;
+  margin: 0.28vw;
+  @apply md:m-0.5 md:w-4 md:h-4;
+}
+
 .matrix-item.indicator {
+  @apply rounded-full;
+}
+
+.indicator.matrix-item.matrix-item-16 {
   width: 1.8vw;
   height: 1.8vw;
   margin: 1vw 2vw;
-  @apply md:mb-2 md:mt-1 md:mx-4 md:w-2 md:h-2 rounded-full;
+  @apply md:mb-2 md:mt-1 md:mx-4 md:w-2 md:h-2;
+}
+
+.indicator.matrix-item.matrix-item-32 {
+  width: 0.9vw;
+  height: 0.9vw;
+  margin: 0.5vw 1vw;
+  @apply md:mb-2 md:mt-1 md:mx-1.5 md:w-2 md:h-2;
 }
 
 .control {
@@ -304,6 +325,14 @@ input[type="range"]::-ms-thumb {
 
 .control-global {
   @apply p-1 flex flex-wrap items-center;
+}
+
+.control-global label.switch {
+  @apply ml-0;
+}
+
+.control-global > * {
+  @apply mr-6;
 }
 
 .control-full {

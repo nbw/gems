@@ -21,8 +21,13 @@ defmodule GEMSWeb.GEMSLiveHelper do
   def room_topic(%{"room" => topic}), do: "room:private:#{topic}"
   def room_topic(_params), do: @public_topic
 
+  def room_name("room:private:" <> room), do: room
+  def room_name("room:public"), do: "public"
+
   def public_room?(%{assigns: %{topic: topic}} = _socket), do: public_room?(topic)
   def public_room?(topic), do: topic == @public_topic
+
+  def private_room?(topic), do: !public_room?(topic)
 
   def new_matrix_64(size, nil), do: new_matrix(size)
 
@@ -44,4 +49,7 @@ defmodule GEMSWeb.GEMSLiveHelper do
   end
 
   def new_matrix(size, _), do: Matrix.new(size)
+
+  def toggle_size(16), do: 32
+  def toggle_size(32), do: 16
 end

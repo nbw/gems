@@ -9,4 +9,12 @@
     </button>
   </div>
   <GEMSWeb.Components.ModeSwitch.button />
+  <%= if private_room?(@topic) do %>
+    <a
+      class="control-btn"
+      href={Routes.room_path(GEMSWeb.Endpoint, :new, %{s: toggle_size(@size)})}
+    >
+      <%= "#{toggle_size(@size)}-GRID" %>
+    </a>
+  <% end %>
 </div>
