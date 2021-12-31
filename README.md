@@ -39,6 +39,9 @@ GEMS doesn't rely on a DB so:
 # install dependencies
 mix deps.get
 
+# install js dependencies
+mix setup
+
 # start the server
 mix phx.server
 
