@@ -1,39 +1,35 @@
-# fly.toml file generated for gems on 2021-11-23T20:08:34+09:00
+# fly.toml app configuration file generated for gems on 2023-07-11T09:03:03+09:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = "gems"
-
+primary_region = "nrt"
 kill_signal = "SIGTERM"
-kill_timeout = 5
-processes = []
-
-[env]
+kill_timeout = "5s"
 
 [experimental]
-  allowed_public_ports = []
   auto_rollback = true
 
 [[services]]
-  http_checks = []
+  protocol = "tcp"
   internal_port = 4000
   processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
 
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
   [services.concurrency]
+    type = "connections"
     hard_limit = 50
     soft_limit = 45
-    type = "connections"
-
-  [[services.ports]]
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
 
   [[services.tcp_checks]]
-    grace_period = "30s"  # allow some time for startup
     interval = "15s"
-    restart_limit = 0
     timeout = "2s"
+    grace_period = "30s"
+    restart_limit = 0
