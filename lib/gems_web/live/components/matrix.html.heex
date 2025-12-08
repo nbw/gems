@@ -4,6 +4,7 @@
       <%= for row <- 0..@matrix.h - 1 do %>
         <% cell = GEMS.Matrix.get(@matrix, col, row) %>
         <div
+          id={"item-#{col}-#{row}"}
           class={"matrix-item matrix-item-#{@matrix.w} #{active_cell?(cell)}"}
           data-note={Enum.at(@notes,row)}
           phx-click="matrix-item"
@@ -12,7 +13,7 @@
           phx-value-row={ row }>
         </div>
       <% end %>
-      <div phx-update="ignore" class={"indicator matrix-item matrix-item-#{@matrix.w}"}></div>
+      <div id={"indicator-#{col}"} phx-update="ignore" class={"indicator matrix-item matrix-item-#{@matrix.w}"}></div>
     </div>
   <% end %>
 </div>

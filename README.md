@@ -48,6 +48,10 @@ mix phx.server
 # server should be available at http://localhost:4000
 ```
 
+#### Assets
+
+from the `/assets` folder run `npm install` and `npm run deploy`.
+
 ### Using Clustered Nodes Locally
 
 1. Start the first node:

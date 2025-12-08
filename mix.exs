@@ -5,7 +5,7 @@ defmodule GEMS.MixProject do
     [
       app: :gems,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -33,18 +33,19 @@ defmodule GEMS.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.2"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix, "~> 1.7.0"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_view, "~> 2.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.2"},
+      {:phoenix_live_view, "~> 0.19.0"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6.1"},
+      {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
-      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"},
+      {:plug_cowboy, "~> 2.7.5"},
       {:elixir_uuid, "~> 1.2"},
       {:libcluster, "~> 3.3.0"}
     ]
